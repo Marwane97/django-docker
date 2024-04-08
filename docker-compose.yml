@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: django_web
+    build:
+      context: .  # Current directory as context
+      dockerfile: docker/Dockerfile
+    command: python /app/manage.py runserver 0.0.0.0:8000
+    #volumes:
+      #- ./django_project:/app  # Mount the project directory to the work directory in the container
+    ports:
+      - "8000:8000"
+    environment:
+      - "PYTHONUNBUFFERED=1"
+      - "PYTHONDONTWRITEBYTECODE=1"
+    networks:
+      - django_network
+
+networks:
+  django_network: ~
